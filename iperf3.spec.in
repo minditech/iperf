@@ -52,6 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/iperf_api.h
+%{_includedir}/iperf_api.hpp
 %{_libdir}/libiperf.a
 %{_libdir}/libiperf.la
 %{_libdir}/*.so
