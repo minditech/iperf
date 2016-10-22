@@ -300,7 +300,7 @@ extern "C" {
     int iperf_send(struct iperf_test *, fd_set *) /* __attribute__((hot)) */;
     int iperf_recv(struct iperf_test *, fd_set *);
     void iperf_catch_sigend(void (*handler)(int));
-    void iperf_got_sigend(struct iperf_test *test) __attribute__ ((noreturn));
+    [[ noreturn ]] void iperf_got_sigend(struct iperf_test *test);
     void usage();
     void usage_long();
     void warning(char *);
@@ -350,7 +350,7 @@ extern "C" {
 
     /* Error routines. */
     void iperf_err(struct iperf_test *test, const char *format, ...) __attribute__ ((format(printf,2,3)));
-    void iperf_errexit(struct iperf_test *test, const char *format, ...) __attribute__ ((format(printf,2,3),noreturn));
+    [[ noreturn ]] void iperf_errexit(struct iperf_test *test, const char *format, ...) __attribute__ ((format(printf,2,3)));
     char *iperf_strerror(int);
 
 }
