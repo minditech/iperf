@@ -1100,6 +1100,10 @@ iperf_send(struct iperf_test *test, fd_set *write_setP)
 		    i_errno = IESTREAMWRITE;
 		    return r;
 		}
+
+                if(test->coroutine_callback)
+                    test->coroutine_callback(test);
+
 		streams_active = 1;
 		test->bytes_sent += r;
 		++test->blocks_sent;
@@ -1856,6 +1860,7 @@ iperf_defaults(struct iperf_test *testp)
 
     testp->stats_callback = iperf_stats_callback;
     testp->reporter_callback = iperf_reporter_callback;
+    testp->coroutine_callback = NULL;
 
     testp->stats_interval = testp->reporter_interval = 1;
     testp->num_streams = 1;
@@ -2037,6 +2042,7 @@ iperf_free_test(struct iperf_test *test)
     // test->streams = NULL;
     test->stats_callback = NULL;
     test->reporter_callback = NULL;
+    test->coroutine_callback = NULL;
     free(test);
 }
 

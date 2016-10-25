@@ -258,6 +258,7 @@ struct iperf_test
     double    reporter_interval;
     void      (*stats_callback) (struct iperf_test *);
     void      (*reporter_callback) (struct iperf_test *);
+    void      (*coroutine_callback) (struct iperf_test *);
     Timer     *omit_timer;
     Timer     *timer;
     int        done;
