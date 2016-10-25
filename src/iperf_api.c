@@ -1076,6 +1076,7 @@ iperf_send(struct iperf_test *test, fd_set *write_setP)
     register int multisend, r, streams_active;
     register struct iperf_stream *sp;
     struct timeval now;
+    // test->settings->burst = 0; // uncomment for safety
 
     /* Can we do multisend mode? */
     if (test->settings->burst != 0)
@@ -1090,7 +1091,7 @@ iperf_send(struct iperf_test *test, fd_set *write_setP)
 	    gettimeofday(&now, NULL);
 	streams_active = 0;
 	SLIST_FOREACH(sp, &test->streams, streams) {
-	    if (! test->no_fq_socket_pacing ||
+	    if (//! test->no_fq_socket_pacing ||
 		(sp->green_light &&
 		 (write_setP == NULL || FD_ISSET(sp->socket, write_setP)))) {
 		if ((r = sp->snd(sp)) < 0) {
