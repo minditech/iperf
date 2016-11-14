@@ -1107,7 +1107,7 @@ iperf_send(struct iperf_test *test, fd_set *write_setP)
 
                 if(test->coroutine_callback) {
                     double seconds = timeval_diff(&sp->result->start_time_fixed, &now);
-                    test->coroutine_callback(test->settings->rate, test->bytes_sent * 8 / seconds);
+                    test->coroutine_callback(sp->test->settings->rate, sp->result->bytes_sent * 8 / seconds);
                 }
 
 		if (test->settings->rate != 0 && test->settings->burst == 0)
