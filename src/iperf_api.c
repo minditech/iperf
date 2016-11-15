@@ -1062,8 +1062,8 @@ iperf_check_throttle(struct iperf_stream *sp, struct timeval *nowP)
     seconds = timeval_diff(&sp->result->start_time_fixed, nowP);
     bits_per_second = sp->result->bytes_sent * 8 / seconds;
 
-    uint64_t capped_rate = (sp->test->settings->rate > test->settings->rate_cap)
-                           ? test->settings->rate_cap : sp->test->settings->rate;
+    uint64_t capped_rate = (sp->test->settings->rate > sp->test->settings->rate_cap)
+                           ? sp->test->settings->rate_cap : sp->test->settings->rate;
 
     if (bits_per_second < capped_rate) {
         sp->green_light = 1;
