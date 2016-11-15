@@ -111,6 +111,7 @@ struct iperf_settings
     int       socket_bufsize;       /* window size for TCP */
     int       blksize;              /* size of read/writes (-l) */
     uint64_t  rate;                 /* target data rate */
+    uint64_t  rate_cap;             /* target data rate cap value */
     int       burst;                /* packets per burst */
     int       mss;                  /* for TCP MSS */
     int       ttl;                  /* IP TTL option */

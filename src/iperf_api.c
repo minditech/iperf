@@ -1061,7 +1061,11 @@ iperf_check_throttle(struct iperf_stream *sp, struct timeval *nowP)
         return;
     seconds = timeval_diff(&sp->result->start_time_fixed, nowP);
     bits_per_second = sp->result->bytes_sent * 8 / seconds;
-    if (bits_per_second < sp->test->settings->rate) {
+
+    uint64_t capped_rate = (sp->test->settings->rate > test->settings->rate_cap)
+                           ? test->settings->rate_cap : sp->test->settings->rate;
+
+    if (bits_per_second < capped_rate) {
         sp->green_light = 1;
         FD_SET(sp->socket, &sp->test->write_set);
     } else {
@@ -1877,6 +1881,7 @@ iperf_defaults(struct iperf_test *testp)
     testp->settings->socket_bufsize = 0;    /* use autotuning */
     testp->settings->blksize = DEFAULT_TCP_BLKSIZE;
     testp->settings->rate = 0;
+    testp->settings->rate_cap = 0;
     testp->settings->burst = 0;
     testp->settings->mss = 0;
     testp->settings->bytes = 0;
@@ -2109,6 +2114,7 @@ iperf_reset_test(struct iperf_test *test)
     test->settings->socket_bufsize = 0;
     test->settings->blksize = DEFAULT_TCP_BLKSIZE;
     test->settings->rate = 0;
+    test->settings->rate_cap = 0;
     test->settings->burst = 0;
     test->settings->mss = 0;
     memset(test->cookie, 0, COOKIE_SIZE);
