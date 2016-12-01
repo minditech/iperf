@@ -301,8 +301,6 @@ extern "C" {
     int iperf_recv(struct iperf_test *, fd_set *);
     void iperf_catch_sigend(void (*handler)(int));
     [[ noreturn ]] void iperf_got_sigend(struct iperf_test *test);
-    void usage();
-    void usage_long();
     void warning(char *);
     int iperf_exchange_results(struct iperf_test *);
     int iperf_init_test(struct iperf_test *);
